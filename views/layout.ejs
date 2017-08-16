@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>DEFCON</title>
+    <title>RFA Bidding</title>
     <meta name="description" content="">
     <meta name="author" content="">
 
@@ -20,8 +20,25 @@
   </head>
   <body>
     <%- body %>
+    <div id="name">
+      Your Name:
+      <span id="users-name"></span>
+      <button id="change-name">Change</button>
+    </div>
     <script src="/socket.io/socket.io.js"></script>
     <script src="/js/libs/jquery.js"></script>
     <script src="/js/main.js"></script>
+    <script src="/js/libs/jquery.cookie.js"></script>
+    <script>
+      if (!$.cookie('name')) {
+        $.cookie('name', prompt('What is your name?'));
+      }
+      $('#users-name').html($.cookie('name'));
+
+      $('#change-name').click(function() {
+        $.cookie('name', prompt('What is your name?'));
+        $('#users-name').html($.cookie('name'));
+      })
+    </script>
   </body>
 </html>

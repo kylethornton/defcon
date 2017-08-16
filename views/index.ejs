@@ -1,6 +1,34 @@
 <div id="wrapper">
-    <div id="countdown"></div>
-    <button id="start" class="thoughtbot">Start</button>
-    <button id="stop" class="thoughtbot">Stop</button>
-    <button id="reset" class="thoughtbot">Reset</button>
+    <span id="admin" class="hidden">
+	    <button id="start" class="thoughtbot">Start</button>
+	    <button id="stop" class="thoughtbot">Stop</button>
+	    <button id="reset" class="thoughtbot">Reset</button>
+	    <div id="current-player-edit">
+			<div>
+				<label for="current-player-input">Change Current Player</label>
+	    		<input type="text" id="current-player-input">
+	    	</div>
+	    	<div>
+	    		<label for="current-player-input">Reset Bid</label>
+	    		<input type="number" id="reset-bid">
+	    	</div>
+	    </div>
+	</span>
+
+	<div>
+    	<span id="current-player">
+    </div>
+	<div id="countdown"></div>
+
+    <div id="bids">
+    	<span id="top-bidder"></span>
+    	<span id="current-bid"></span>
+    </div>
+    <div id="bid-input">
+	    <input type="number" id="bid-amount" value="0" />
+	    <button id="bid" class="thoughtbot bid-button">Bid</button>
+	    <button id="bid-plus-one" class="thoughtbot bid-button">+1</button>
+	</div>
+
+	<div id="bid-history"></div>
 </div>

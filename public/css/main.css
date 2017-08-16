@@ -1,12 +1,62 @@
 #wrapper {
-  width: 475px;
+  width: 100%;
   height: 171px;
   margin: 100px auto;
+  text-align: center;
 }
 
-#countdown {
+#name {
+  position: absolute;
+  bottom: 0px;
+  left: 0px;
+  padding: 10px;
+}
+
+#countdown, #bids, #admin, #current-player {
   font-family: 'Black Ops One', cursive;
   font-size: 90px;
+  text-align: center;
+}
+
+#admin, #current-player-input {
+  font-size: 30px;
+}
+
+#current-player-edit {
+  margin-top: 30px;
+}
+
+#countdown.warning {
+  color: red;
+}
+
+#current-bid {
+  margin-left: -30px;
+}
+
+#bid-amount {
+  height: 44px;
+  font-size: 40px;
+  width: 100px;
+}
+
+#bid-history {
+  position: absolute;
+  right: 0;
+  top: 0;
+  padding: 20px;
+  border: 1px solid black;
+}
+
+#bids.end { color: green; }
+
+.bid-button {
+  position: relative;
+  top: -10px;
+}
+
+.hidden {
+  display: none;
 }
 
 button.thoughtbot {
