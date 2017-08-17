@@ -40,6 +40,9 @@ app.listen(port, function() {
 });
 
 app.get('/', routes.index);
+app.get('/admin', function(req, res) {
+  res.render('admin');
+});
 
 var stopwatch = new Stopwatch();
 stopwatch.on('tick:stopwatch', function(time) {
@@ -59,7 +62,11 @@ stopwatch.on('bid:received', function(data) {
 
 stopwatch.on('player:changed', function (player) {
   io.sockets.emit('player', player);
-})
+});
+
+stopwatch.on('stop:stopwatch', function (player) {
+  io.sockets.emit('stop');
+});
 
 //stopwatch.start();
 

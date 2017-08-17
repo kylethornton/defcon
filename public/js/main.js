@@ -1,9 +1,9 @@
 var socket = io.connect(window.location.hostname);
 
 socket.on('time', function (data) {
-    var countdown = document.getElementById('countdown');
-    countdown.innerHTML = data.time.value;
-    countdown.className = data.time.class;
+    $('#countdown').html(data.time.value)
+                   .addClass(data.time.class);
+
     console.log(data);
     if (data.time.end) {
     	$('#bids').addClass('end');
@@ -11,9 +11,15 @@ socket.on('time', function (data) {
     		                       + ': Won by '
     		                       + $('#top-bidder').html()
     		                       + $('#current-bid').html() + '<br/>');
+    	$('#countdown').removeClass('running');
     } else {
     	$('#bids').removeClass('end');
+    	if (data.time.running) {
+    		$('#countdown').addClass('running');
+    	}
     }
+    //wait for next cycle of event loop to remove the class
+    setTimeout(function(){$('#countdown').removeClass('pulse')},250);
 });
 
 socket.on('bid', function (bid) {
@@ -32,24 +38,16 @@ socket.on('reset', function() {
 	$('#bid-amount').val(0);
 });
 
-$.urlParam = function(name){
-    var results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(window.location.href);
-    if (results==null){
-       return null;
-    }
-    else{
-       return decodeURI(results[1]) || 0;
-    }
-}
-
-if ($.urlParam('admin') === 'true') {
-	$('#admin').removeClass('hidden');
-	$('#bid-input').addClass('hidden');
-	$('#current-player').addClass('hidden');
-}
+socket.on('stop', function() {
+	$('#countdown').removeClass('running');
+});
 
 $('#start').click(function() {
-    socket.emit('click:start');
+    if ($('#current-player-input').val()) {
+    	socket.emit('click:start');
+    } else {
+    	alert('Please Cet Current Player');
+    }
 });
 
 $('#stop').click(function() {

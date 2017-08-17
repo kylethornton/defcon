@@ -146,8 +146,9 @@ Stopwatch.prototype.setBid = function (bid) {
 Stopwatch.prototype.getTime = function() {
     return {
         value: this.formatTime(this.time),
-        class: this.time <= 5000 ? 'warning' : '',
-        end: this.time === 0
+        class: this.time <= 5000 && this.time > 0 ? 'warning pulse' : '',
+        end: this.time === 0,
+        running: this.interval !== undefined
     }
 
 };
