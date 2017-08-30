@@ -97,4 +97,8 @@ io.sockets.on('connection', function (socket) {
   socket.on('bid:set', function (bid) {
     stopwatch.setBid(bid);
   });
+
+  socket.on('timer:start:set', function (seconds) {
+    stopwatch.setStartTime(parseInt(seconds) * 1000);
+  });
 });

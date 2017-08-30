@@ -18,7 +18,7 @@ function Stopwatch() {
     this.hour = 3600000;
     this.minute = 60000;
     this.second = 1000;
-    this.startTime = 20000;
+    this.startTime = 90000;
     this.time = this.startTime;
     this.interval = undefined;
 
@@ -62,6 +62,7 @@ Stopwatch.prototype.stop = function() {
 Stopwatch.prototype.reset = function() {
     console.log('Resetting Stopwatch!');
     this.stop();
+    console.log('StartTime is', this.startTime);
     this.time = this.startTime;
     this.bid.amount = 0;
     this.bid.topBidder = 'Admin';
@@ -79,7 +80,7 @@ Stopwatch.prototype.onTick = function() {
     var formattedTime = this.getTime();
     this.emit('tick:stopwatch', formattedTime);
 
-    if (this.time === 0) {
+    if (this.time <= 0) {
         this.stop();
     }
 };
@@ -108,7 +109,7 @@ Stopwatch.prototype.formatTime = function(time) {
         numMinutes,
         numSeconds,
         output = "";
-
+    console.log('Remainder is', time);
     // numHours = String(parseInt(remainder / this.hour, 10));
     // remainder -= this.hour * numHours;
 
@@ -116,14 +117,14 @@ Stopwatch.prototype.formatTime = function(time) {
     remainder -= this.minute * numMinutes;
 
     numSeconds = String(parseInt(remainder / this.second, 10));
-
+    console.log('Minutes',numMinutes,'Seconds',numSeconds);
     output = _.map([numMinutes, numSeconds], function(str) {
         if (str.length === 1) {
             str = "0" + str;
         }
         return str;
     }).join(":");
-
+    console.log('formatted time is', output);
     return output;
 };
 
@@ -141,6 +142,12 @@ Stopwatch.prototype.setBid = function (bid) {
             bid: this.getBid()
         }
     );
+}
+
+Stopwatch.prototype.setStartTime = function (seconds) {
+    console.log('Setting initial time to', seconds);
+    this.startTime = seconds;
+    this.reset();
 }
 
 Stopwatch.prototype.getTime = function() {

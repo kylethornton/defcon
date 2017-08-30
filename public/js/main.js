@@ -2,6 +2,7 @@ var socket = io.connect(window.location.hostname);
 
 socket.on('time', function (data) {
     $('#countdown').html(data.time.value)
+    							 .removeClass('warning')
                    .addClass(data.time.class);
 
     console.log(data);
@@ -91,6 +92,10 @@ $('#current-player-input').blur(function(event) {
 })
 
 $('#reset-bid').change(function(event) {
-	socket.emit('bid:set', event.target.value);
+	socket.emit('bid:set', event.target.value - 1);
+});
+
+$('#timer-seconds').change(function(event) {
+	socket.emit('timer:start:set', event.target.value);
 });
 
